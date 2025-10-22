@@ -10,7 +10,6 @@
         userSync = "home-manager switch --flake .";
       };
 
-
       initExtra = ''
         eval "$(starship init bash)"
         eval "$(fzf --bash)"
@@ -46,9 +45,7 @@
         eval "$(starship init zsh)"
         eval "$(fzf --zsh)"
         eval "$(zoxide init zsh)"
-
       '';
-
     };
 
     git = {
