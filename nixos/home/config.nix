@@ -2,12 +2,15 @@
 
 {
   programs = {
-    nushell = {
+    zsh = {
       enable = true;
-    };
-
-    bash = {
-      enable = true;
+      ohMyZsh = {
+        enable = true;
+        plugins = [
+          "git"
+          "z"
+        ];
+      };
     };
 
     git = {
