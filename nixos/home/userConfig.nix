@@ -2,15 +2,8 @@
 
 {
   programs = {
-    zsh = {
+    fish = {
       enable = true;
-      ohMyZsh = {
-        enable = true;
-        plugins = [
-          "git"
-          "z"
-        ];
-      };
     };
 
     git = {
