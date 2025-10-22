@@ -20,6 +20,7 @@
 
     zsh = {
       enable = true;
+
       enableCompletion = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
@@ -31,7 +32,6 @@
 
       oh-my-zsh = {
         enable = true;
-        theme = "jonathan";
 
         plugins = [
           "git"
@@ -40,10 +40,15 @@
         ];
       };
 
+      interactiveShellInit = ''
+        eval "$(starship init zsh)"
+      '';
+
     };
 
     git = {
       enable = true;
+
       settings.user = {
         name = "doyouwantto2";
         email = "tinhphong2580@gmail.com";
