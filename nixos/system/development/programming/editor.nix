@@ -8,7 +8,6 @@
 
     micro
 
-    fishPlugins.grc
     starship
   ];
 }
