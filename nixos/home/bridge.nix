@@ -1,6 +1,6 @@
 { config, pkgs, lib, xdg, ... }:
 
 {
-  xdg.configFile."cava".source = config.lib.file.mkOutOfStoreSymlink "./extra/dotfiles/cava";
-  xdg.configFile."hypr".source = config.lib.file.mkOutOfStoreSymlink "./extra/dotfiles/hypr";
+  home.file."cava".source = config.lib.file.mkOutOfStoreSymlink "./extra/dotfiles/cava";
+  home.file."hypr".source = config.lib.file.mkOutOfStoreSymlink "./extra/dotfiles/hypr";
 }
