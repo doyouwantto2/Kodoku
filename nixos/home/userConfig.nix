@@ -16,7 +16,8 @@
     zsh = {
       enable = true;
       enableCompletion = true;
-      syntax-highlighting = true;
+      enableAutosuggestions = true;
+      enableSyntaxHighlighting = true;
     };
 
     git = {
