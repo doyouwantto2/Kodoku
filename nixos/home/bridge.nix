@@ -2,6 +2,6 @@
 
 {
   home.file = {
-    ".config/cava".source = lib.mkOutOfStoreSymlink ./extra/dotfiles/cava;
+    ".config/cava".source = lib.file.mkOutOfStoreSymlink ./extra/dotfiles/cava;
   };
 }
