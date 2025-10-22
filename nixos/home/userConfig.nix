@@ -14,6 +14,18 @@
       ];
     };
 
+    programs.bash = {
+      enable = true;
+      shellAliases = { };
+
+      initExtra = ''
+        eval "$(starship init bash)"
+        eval "$(fzf --bash)"
+        eval "$(zoxide init bash)"
+      '';
+    };
+
+
     git = {
       enable = true;
       settings.user = {
