@@ -7,5 +7,8 @@
     vscodium
 
     micro
+
+    fishPlugins.grc
+    starship
   ];
 }
