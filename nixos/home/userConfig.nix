@@ -18,7 +18,7 @@
       ];
     };
 
-    programs.bash = {
+    bash = {
       enable = true;
       shellAliases = { };
 
