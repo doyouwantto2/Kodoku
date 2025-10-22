@@ -36,7 +36,7 @@
         plugins = [
           "git"
           "sudo"
-          "z"
+          "zoxide"
         ];
       };
 
