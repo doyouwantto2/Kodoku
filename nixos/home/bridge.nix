@@ -2,7 +2,7 @@
 
 {
   home.file = {
-    ".config/cava".source = config.lib.file.mkOutOfStoreSymlink "./extra/dotfiles/cava";
-    ".config/hypr".source = config.lib.file.mkOutOfStoreSymlink "./extra/dotfiles/hypr";
+    xdg.configFile."cava".source = config.lib.file.mkOutOfStoreSymlink "./extra/dotfiles/cava";
+    xdg.configFile."hypr".source = config.lib.file.mkOutOfStoreSymlink "./extra/dotfiles/hypr";
   };
 }
