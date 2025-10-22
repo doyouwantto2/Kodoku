@@ -16,7 +16,7 @@
     zsh = {
       enable = true;
       enableCompletion = true;
-      syntaxHighlighting = true;
+      syntax-highlighting = true;
     };
 
     git = {
