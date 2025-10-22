@@ -18,9 +18,5 @@
       };
     };
 
-    arion = {
-      backend = "docker";
-    };
-
   };
 }
