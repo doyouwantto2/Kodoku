@@ -16,7 +16,7 @@
     zsh = {
       enable = true;
       enableCompletion = true;
-      enableAutosuggestions = true;
+      enableAutosuggestions.enable = true;
       syntaxHighlighting.enable = true;
     };
 
