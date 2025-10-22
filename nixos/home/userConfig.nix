@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  home.package = with pkgs; [
+    fishPlugins.grc
+  ];
+
   programs = {
     fish = {
       enable = true;
