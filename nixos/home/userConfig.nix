@@ -24,8 +24,6 @@
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
 
-      theme = "jonathan";
-
       shellAliases = {
         systemSync = "sudo nixos-rebuild switch --flake .";
         userSync = "home-manager switch --flake .";
@@ -33,6 +31,8 @@
 
       oh-my-zsh = {
         enable = true;
+        theme = "jonathan";
+
         plugins = [
           "git"
           "sudo"
