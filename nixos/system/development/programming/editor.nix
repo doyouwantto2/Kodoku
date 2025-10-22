@@ -7,7 +7,5 @@
     vscodium
 
     micro
-
-    starship
   ];
 }
