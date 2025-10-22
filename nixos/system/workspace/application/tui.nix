@@ -27,6 +27,10 @@
     starship
 
     cava
+
+    hyprshot
+
+    hyprshade
   ];
 }
 
