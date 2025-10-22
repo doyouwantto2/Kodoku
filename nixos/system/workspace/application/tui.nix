@@ -25,6 +25,8 @@
     zoxide
 
     starship
+
+    cava
   ];
 }
 
