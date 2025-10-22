@@ -21,6 +21,10 @@
     fd
 
     tree-sitter
+
+    zoxide
+
+    starship
   ];
 }
 
