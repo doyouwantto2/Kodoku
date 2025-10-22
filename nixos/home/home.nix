@@ -3,7 +3,7 @@
 {
   imports = [
     ./bridge.nix
-    ./config.nix
+    ./userConfig.nix
   ];
 
   home.username = "emiya2467";
