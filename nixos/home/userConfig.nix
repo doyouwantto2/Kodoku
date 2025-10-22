@@ -37,6 +37,8 @@
           "git"
           "sudo"
           "zoxide"
+          "fzf"
+          "eza"
         ];
       };
 
