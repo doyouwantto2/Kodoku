@@ -1,8 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
   programs.nix-ld.enable = true;
+  programs.xwayland.enable = true;
 
   environment.systemPackages = with pkgs; [
     wezterm
