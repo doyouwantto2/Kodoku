@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./bridge.nix
+    ./pipeline.nix
     ./userConfig.nix
   ];
 

@@ -2,5 +2,7 @@
 
 {
   imports = [
+    ./cloud.nix
+    ./docker.nix
   ];
 }
