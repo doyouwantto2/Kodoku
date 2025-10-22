@@ -40,7 +40,7 @@
         ];
       };
 
-      interactiveShellInit = ''
+      initContent = ''
         eval "$(starship init zsh)"
       '';
 
