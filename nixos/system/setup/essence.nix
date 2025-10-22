@@ -6,6 +6,7 @@
 
   environment.systemPackages = with pkgs; [
     wezterm
+    kitty
     wl-clipboard
     xdg-desktop-portal
     xdg-desktop-portal-hyprland
