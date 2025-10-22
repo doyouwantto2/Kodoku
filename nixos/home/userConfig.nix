@@ -13,6 +13,11 @@
       '';
     };
 
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+      syntaxHighlighting = true;
+    };
 
     git = {
       enable = true;
