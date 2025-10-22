@@ -188,7 +188,6 @@ return {
 
         tailwindcss = {
           filetypes = {
-            "templ",
             "vue",
             "html",
             "astro",
