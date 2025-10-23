@@ -13,13 +13,14 @@
     OPENSSL_LIB_DIR = "${pkgs.openssl.out}/lib";
     OPENSSL_INCLUDE_DIR = "${pkgs.openssl.dev}/include";
 
-    PKG_CONFIG_PATH = lib.mkForce (lib.makeSearchPath "lib/pkgconfig" [
+    PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" [
       pkgs.openssl.dev
       pkgs.glib.dev
       pkgs.gobject-introspection.dev
       pkgs.gtk3.dev
       pkgs.gtk4.dev
-    ]);
+    ];
+
   };
 
 }
