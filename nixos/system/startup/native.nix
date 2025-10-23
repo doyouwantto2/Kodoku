@@ -15,17 +15,18 @@
 
     PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" [
       pkgs.openssl.dev
-      pkgs.openssl
-      pkgs.glib
-      pkgs.gobject-introspection
-      pkgs.gtk3
-      pkgs.gtk4
+      pkgs.glib.dev
+      pkgs.gobject-introspection.dev
+      pkgs.gtk3.dev
+      pkgs.gtk4.dev
     ];
 
     LD_LIBRARY_PATH = lib.makeLibraryPath [
       pkgs.gtk3
       pkgs.glib
       pkgs.openssl
+      pkgs.librsvg
+      pkgs.dbus
     ];
   };
 }
