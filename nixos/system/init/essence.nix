@@ -9,6 +9,7 @@
   programs.xwayland.enable = true;
 
   environment.systemPackages = with pkgs; [
+    git
     wezterm
     kitty
     wl-clipboard
