@@ -23,9 +23,5 @@
     gtk3
     gtk4
     libiconv
-
-    cargo-tauri # added Tauri CLI
-    nodejs_18 # added Node.js (v18)
-    nodePackages.pnpm # added pnpm package manager
   ];
 }
