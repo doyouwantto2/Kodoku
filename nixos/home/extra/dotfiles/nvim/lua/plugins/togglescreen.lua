@@ -2,6 +2,9 @@ return {
   "akinsho/toggleterm.nvim",
   config = function()
     require("toggleterm").setup({
+      -- Add this line to specify zsh as the shell
+      shell = "zsh",
+
       direction = "float",
       open_mapping = [[<M-\>]],
       float_opts = {
@@ -17,6 +20,8 @@ return {
     })
 
     local Terminal = require("toggleterm.terminal").Terminal
+    -- Note: For a terminal opened with 'cmd' (like lazygit),
+    -- the 'shell' option is ignored, and 'lazygit' is executed directly.
     local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
   end,
 }
