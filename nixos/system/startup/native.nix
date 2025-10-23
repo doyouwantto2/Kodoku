@@ -23,10 +23,13 @@
 
     LD_LIBRARY_PATH = lib.makeLibraryPath [
       pkgs.gtk3
+      pkgs.gtk4
       pkgs.glib
       pkgs.openssl
       pkgs.librsvg
       pkgs.dbus
     ];
+
+    PKG_CONFIG_ALLOW_SYSTEM_CFLAGS = "1";
   };
 }
