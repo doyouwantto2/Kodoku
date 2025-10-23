@@ -8,17 +8,50 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [ ./nixos/system/wrapper.nix ];
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    homeConfigurations.emiya2467 = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      modules = [ ./nixos/home/home.nix ];
+    astal = {
+      url = "github:aylur/astal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ags = {
+      url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.astal.follows = "astal";
     };
   };
+
+  outputs = { self, nixpkgs, home-manager, fenix, ags, astal, ... }@inputs:
+
+    let
+      user = rec {
+        name = "emiya2467";
+        system = "x86_64-linux";
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ fenix.overlays.default ];
+        };
+      };
+
+      rustPkgs = fenix.packages.${user.system}.stable;
+    in
+    {
+
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        system = user.system;
+        modules = [ ./nixos/system/wrapper.nix ];
+        specialArgs = { inherit user rustPkgs ags astal; };
+      };
+
+      homeConfigurations.emiya2467 = home-manager.lib.homeManagerConfiguration {
+        pkgs = user.pkgs;
+        modules = [ ./nixos/home/home.nix ];
+        extraSpecialArgs = { inherit user; };
+      };
+    };
 }
