@@ -2,9 +2,9 @@
 
 {
   imports = [
-    ./init/init.nix
+    ./startup/startup.nix
 
-    ./base/configuration.nix
+    ./origin/configuration.nix
 
     ./development/development.nix
 
