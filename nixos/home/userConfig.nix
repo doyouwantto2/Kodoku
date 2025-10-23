@@ -47,14 +47,5 @@
         eval "$(zoxide init zsh)"
       '';
     };
-
-    git = {
-      enable = true;
-
-      settings.user = {
-        name = "doyouwantto2";
-        email = "tinhphong2580@gmail.com";
-      };
-    };
   };
 }

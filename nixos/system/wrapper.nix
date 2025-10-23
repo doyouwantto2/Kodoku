@@ -2,14 +2,14 @@
 
 {
   imports = [
-    ./init/configuration.nix
+    ./init/init.nix
 
-    ./setup/setup.nix
+    ./base/configuration.nix
 
     ./development/development.nix
 
     ./security/security.nix
 
-    ./workspace/workspace.nix
+    ./desktop/desktop.nix
   ];
 }
