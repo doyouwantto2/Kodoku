@@ -4,7 +4,7 @@
   environment.systemPackages = with pkgs; [
     neovim
 
-    vscode
+    vscodium
 
     micro
   ];
