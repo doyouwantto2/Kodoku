@@ -18,6 +18,7 @@
     openssl
     pkg-config
     glib
+    glibc
     gobject-introspection
     gtk3
     gtk4
