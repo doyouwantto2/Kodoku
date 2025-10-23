@@ -17,6 +17,10 @@
     xdg-desktop-portal-hyprland
     openssl
     pkg-config
+    glib
+    gobject-introspection
+    gtk3
+    gtk4
     libiconv
   ];
 }
