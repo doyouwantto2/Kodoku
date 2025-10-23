@@ -12,24 +12,6 @@
     OPENSSL_DIR = "${pkgs.openssl.dev}";
     OPENSSL_LIB_DIR = "${pkgs.openssl.out}/lib";
     OPENSSL_INCLUDE_DIR = "${pkgs.openssl.dev}/include";
-
-    PKG_CONFIG_PATH = lib.makeSearchPath "lib/pkgconfig" [
-      pkgs.openssl.dev
-      pkgs.glib.dev
-      pkgs.gobject-introspection.dev
-      pkgs.gtk3.dev
-      pkgs.gtk4.dev
-    ];
-
-    LD_LIBRARY_PATH = lib.makeLibraryPath [
-      pkgs.gtk3
-      pkgs.gtk4
-      pkgs.glib
-      pkgs.openssl
-      pkgs.librsvg
-      pkgs.dbus
-    ];
-
-    PKG_CONFIG_ALLOW_SYSTEM_CFLAGS = "1";
+    PKG_CONFIG_PATH = "${pkgs.gtk3.dev}/lib/pkgconfig:${pkgs.glib.dev}/lib/pkgconfig:${pkgs.gobject-introspection.dev}/lib/pkgconfig:${pkgs.openssl.dev}/lib/pkgconfig";
   };
 }
