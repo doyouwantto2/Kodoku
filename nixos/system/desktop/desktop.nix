@@ -4,6 +4,6 @@
   imports = [
     ./application/application.nix
 
-    ./workspace/workspace.nix
+    ./workflow/workflow.nix
   ];
 }
