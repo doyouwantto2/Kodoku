@@ -31,6 +31,8 @@
     hyprshot
 
     hyprshade
+
+    dmidecode
   ];
 }
 
