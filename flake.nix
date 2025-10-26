@@ -31,7 +31,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, fenix, ags, astal, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, fenix, ags, astal, hyprland, ... }@inputs:
 
     let
       user = rec {
@@ -56,7 +56,7 @@
       homeConfigurations.${user.name} = home-manager.lib.homeManagerConfiguration {
         pkgs = user.pkgs;
         modules = [ ./nixos/user/user.nix ];
-        extraSpecialArgs = { inherit user; };
+        extraSpecialArgs = { inherit user inputs; };
       };
     };
 }
