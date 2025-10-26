@@ -13,6 +13,8 @@ in
       Hyprspace
     ];
 
-    extraConfig = "${config.xdg.configHome}/hypr/hyprland.conf";
+    extraConfig = ''
+      source = ${config.xdg.configHome}/hypr/hyprland.conf
+    '';
   };
 }
