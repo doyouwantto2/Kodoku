@@ -10,6 +10,7 @@
     git
     wezterm
     kitty
+    alacritty
     wl-clipboard
     xdg-desktop-portal
     xdg-desktop-portal-hyprland
