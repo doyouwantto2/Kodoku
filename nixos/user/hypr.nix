@@ -1,16 +1,15 @@
 { config, pkgs, inputs, ... }:
 
 {
-  # 1. Define the Home Manager module for Hyprland configuration
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.hyprland;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
     plugins = [
     ];
 
-    extraConfig = ''
-      source = ${config.xdg.configHome}/hypr/hyprland.conf
-    '';
+    extraConfig = builtins.readFile ./extra/dotfiles/hypr/hyprland.conf;
   };
+
 }
