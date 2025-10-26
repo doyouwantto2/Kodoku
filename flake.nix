@@ -55,7 +55,7 @@
 
       homeConfigurations.${user.name} = home-manager.lib.homeManagerConfiguration {
         pkgs = user.pkgs;
-        modules = [ ./nixos/home/user.nix ];
+        modules = [ ./nixos/user/user.nix ];
         extraSpecialArgs = { inherit user; };
       };
     };
