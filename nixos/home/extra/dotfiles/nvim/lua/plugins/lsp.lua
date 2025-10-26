@@ -1,30 +1,27 @@
-local lspconfig = require("lspconfig")
+local lsp_util = require("lspconfig.util")
 
--- Register HTMLHint as a custom LSP server
-lspconfig.htmlhint_ls = {
-  default_config = {
-    cmd = { "htmlhint-ls", "--stdio" }, -- make sure htmlhint-language-server is in PATH
-    filetypes = { "html" },
-    root_dir = lspconfig.util.root_pattern(".git", "package.json"),
-    settings = {},
-  },
-}
+local function find_root_pattern(patterns)
+  return function(fname)
+    return lsp_util.root_pattern(unpack(patterns))(fname)
+  end
+end
 
--- Register CSSLint as a custom LSP server
-lspconfig.csslint_ls = {
-  default_config = {
-    cmd = { "csslint", "--stdio" }, -- make sure csslint is in PATH
-    filetypes = { "css" },
-    root_dir = lspconfig.util.root_pattern(".git", "package.json"),
-    settings = {},
-  },
-}
+local function ts_on_attach(client, bufnr)
+  client.server_capabilities.documentFormattingProvider = false
+  client.server_capabilities.documentRangeFormattingProvider = false
+
+  local opts = { noremap = true, silent = true, buffer = bufnr }
+  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+  vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+  vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+end
+
+local common_root_dir = find_root_pattern { ".git", "package.json" }
 
 return {
-  -- change trouble config
   {
     "dgagn/diagflow.nvim",
-    -- event = 'LspAttach', This is what I use personnally and it works great
+    event = 'LspAttach',
     opts = {},
   },
 
@@ -42,60 +39,82 @@ return {
     "mfussenegger/nvim-dap",
     optional = true,
     dependencies = {
-      -- Ensure C/C++ debugger is installed
       "mason-org/mason.nvim",
       optional = true,
       opts = { ensure_installed = { "codelldb" } },
     },
     opts = function()
       local dap = require("dap")
-      if not dap.adapters["codelldb"] then
-        require("dap").adapters["codelldb"] = {
+      local adapter_name = "codelldb"
+
+      if not dap.adapters[adapter_name] then
+        dap.adapters[adapter_name] = {
           type = "server",
           host = "localhost",
           port = "${port}",
           executable = {
             command = "codelldb",
-            args = {
-              "--port",
-              "${port}",
-            },
+            args = { "--port", "${port}" },
           },
         }
       end
-      for _, lang in ipairs({ "c", "cpp" }) do
-        dap.configurations[lang] = {
-          {
-            type = "codelldb",
-            request = "launch",
-            name = "Launch file",
-            program = function()
-              return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-            end,
-            cwd = "${workspaceFolder}",
-          },
-          {
-            type = "codelldb",
-            request = "attach",
-            name = "Attach to process",
-            pid = require("dap.utils").pick_process,
-            cwd = "${workspaceFolder}",
-          },
-        }
-      end
+
+      local cc_config = {
+        {
+          type = adapter_name,
+          request = "launch",
+          name = "Launch file",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+        },
+        {
+          type = adapter_name,
+          request = "attach",
+          name = "Attach to process",
+          pid = require("dap.utils").pick_process,
+          cwd = "${workspaceFolder}",
+        },
+      }
+
+      dap.configurations.c = cc_config
+      dap.configurations.cpp = cc_config
     end,
+  },
+
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^6',
+    lazy = false,
+    ["rust-analyzer"] = {
+      cargo = {
+        allFeatures = true,
+      },
+    },
   },
 
   { "mason-org/mason.nvim",                      enabled = false },
   { "mason-org/mason-lspconfig.nvim",            enabled = false },
   { "WhoIsSethDaniel/mason-tool-installer.nvim", enabled = false },
 
-  -- LSP setup
   {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        -- Nix
+        htmlhint_ls = {
+          cmd = { "htmlhint-ls", "--stdio" },
+          filetypes = { "html" },
+          root_dir = common_root_dir,
+          settings = {},
+        },
+        csslint_ls = {
+          cmd = { "csslint", "--stdio" },
+          filetypes = { "css" },
+          root_dir = common_root_dir,
+          settings = {},
+        },
+
         nixd = {
           cmd = { "nixd" },
           settings = {
@@ -105,52 +124,36 @@ return {
           },
         },
 
-        -- TS/JS (both modern and legacy LS)
         tsserver = {
           cmd = { "typescript-language-server", "--stdio" },
           filetypes = {
-            "javascript",      -- .js
-            "javascriptreact", -- .jsx
-            "typescript",      -- .ts
-            "typescriptreact", -- .tsx
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
           },
-          root_dir = function(fname)
-            return require("lspconfig.util").root_pattern(
-              "tsconfig.json",
-              "package.json",
-              "jsconfig.json",
-              ".git"
-            )(fname)
-          end,
+          root_dir = find_root_pattern {
+            "tsconfig.json",
+            "package.json",
+            "jsconfig.json",
+            ".git",
+          },
           init_options = {
             hostInfo = "neovim",
           },
-          on_attach = function(client, bufnr)
-            -- Disable formatting to avoid conflicts with Prettier/null-ls
-            client.server_capabilities.documentFormattingProvider = false
-            client.server_capabilities.documentRangeFormattingProvider = false
-
-            -- Optional keymaps for React dev
-            local opts = { noremap = true, silent = true, buffer = bufnr }
-            vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-            vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-            vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-          end,
+          on_attach = ts_on_attach,
         },
 
         html = {
           cmd = { "vscode-html-language-server", "--stdio" },
         },
-
         cssls = {
           cmd = { "vscode-css-language-server", "--stdio" },
         },
-
         jsonls = {
           cmd = { "vscode-json-language-server", "--stdio" },
         },
 
-        -- Python
         pyright = {
           settings = {
             python = {
@@ -163,27 +166,25 @@ return {
         },
 
         ccls = {
-          cmd = { "ccls" }, -- ccls must be in PATH (from nixpkgs)
+          cmd = { "ccls" },
           init_options = {
             cache = {
               directory = ".ccls-cache",
             },
-            compilationDatabaseDirectory = "build", -- if you use compile_commands.json
+            compilationDatabaseDirectory = "build",
           },
         },
 
         astro = {
           cmd = { "astro-ls", "--stdio" },
           filetypes = { "astro" },
-          root_dir = function(fname)
-            return require("lspconfig.util").root_pattern(
-              "astro.config.mjs",
-              "astro.config.ts",
-              "package.json",
-              "tsconfig.json",
-              ".git"
-            )(fname)
-          end,
+          root_dir = find_root_pattern {
+            "astro.config.mjs",
+            "astro.config.ts",
+            "package.json",
+            "tsconfig.json",
+            ".git",
+          },
         },
 
         tailwindcss = {
@@ -198,21 +199,7 @@ return {
             "htmlangular",
           },
         },
-
       },
     },
   },
-
-
-  {
-    'mrcjkb/rustaceanvim',
-    version = '^6', -- Recommended
-    lazy = false,   -- This plugin is already lazy
-    ["rust-analyzer"] = {
-      cargo = {
-        allFeatures = true,
-      },
-    },
-  },
-
 }
