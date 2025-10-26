@@ -13,6 +13,6 @@ in
       hycovPackage
     ];
 
-    configFile = "${config.xdg.configHome}/hypr/hyprland.conf";
+    extraConfig = "${config.xdg.configHome}/hypr/hyprland.conf";
   };
 }

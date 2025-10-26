@@ -155,6 +155,34 @@
         "type": "github"
       }
     },
+    "hycov": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "hycov",
+          "hyprland",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1719328349,
+        "narHash": "sha256-upIUl8IE5ow+CJKa2SIo3OL/djarGVr8pNe1j05uW1A=",
+        "owner": "DreamMaoMao",
+        "repo": "hycov",
+        "rev": "de15cdd6bf2e46cbc69735307f340b57e2ce3dd0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DreamMaoMao",
+        "repo": "hycov",
+        "type": "github"
+      }
+    },
     "hyprcursor": {
       "inputs": {
         "hyprlang": [
@@ -461,6 +489,7 @@
         "astal": "astal",
         "fenix": "fenix",
         "home-manager": "home-manager",
+        "hycov": "hycov",
         "hyprland": "hyprland",
         "nixpkgs": "nixpkgs"
       }
