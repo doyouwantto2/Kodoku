@@ -4,6 +4,6 @@
   imports = [
     ./editor.nix
     ./language.nix
-    ./database.nix
+    ./dependency.nix
   ];
 }
