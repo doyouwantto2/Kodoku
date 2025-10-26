@@ -2,6 +2,6 @@
 
 {
   imports = [
-    ./code/code.nix
+    ./programming/programming.nix
   ];
 }

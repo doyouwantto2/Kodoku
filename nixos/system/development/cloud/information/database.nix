@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: 
+{ config, pkgs, ... }:
 
 {
   services.postgresql = {
@@ -26,3 +26,4 @@
   };
 
 }
+
