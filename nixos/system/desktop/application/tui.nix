@@ -15,6 +15,10 @@
     dmidecode
 
     btop
+
+    gnumake
+
+    cmake
   ];
 }
 
