@@ -21,11 +21,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    Hyprspace = {
-      url = "github:KZDKM/Hyprspace";
-      inputs.hyprland.follows = "hyprland";
-    };
-
     astal = {
       url = "github:aylur/astal";
       inputs.nixpkgs.follows = "nixpkgs";
