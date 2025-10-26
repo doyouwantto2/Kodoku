@@ -44,11 +44,11 @@
 
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = user.system;
-        modules = [ ./nixos/system/wrapper.nix ];
+        modules = [ ./nixos/system/zone.nix ];
         specialArgs = { inherit user rustPkgs ags astal; };
       };
 
-      homeConfigurations.emiya2467 = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.${user.name} = home-manager.lib.homeManagerConfiguration {
         pkgs = user.pkgs;
         modules = [ ./nixos/home/home.nix ];
         extraSpecialArgs = { inherit user; };
