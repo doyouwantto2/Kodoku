@@ -1,7 +1,7 @@
 { config, pkgs, inputs, ... }:
 
 {
-  home.file."${config.xdg.configHome}/hypr".source = ./extra/dotfiles/hypr;
+  home.file."${config.xdg.configHome}/hypr".source = config.lib.file.mkOutOfStoreSymlink ./extra/dotfiles/hypr;
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
