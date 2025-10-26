@@ -181,22 +181,6 @@ return {
     end,
   },
 
-  {
-    "folke/snacks.nvim",
-    opts = {
-      picker = {
-        hidden = true,
-        ignored = true,
-        sources = {
-          files = {
-            hidden = true,
-            ignored = true,
-          },
-        },
-      },
-    },
-  },
-
   -- use mini.starter instead of alpha
   { import = "lazyvim.plugins.extras.ui.mini-starter" },
 
