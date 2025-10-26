@@ -2,8 +2,9 @@
 
 {
   imports = [
-    ./pipeline.nix
-    ./userConfig.nix
+    ./file.nix
+    ./hypr.nix
+    ./tool.nix
   ];
 
   home.username = "emiya2467";
