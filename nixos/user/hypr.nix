@@ -1,5 +1,8 @@
 { config, pkgs, inputs, ... }:
 
+let
+  hyprcovPackage = inputs.hyprcov.packages.${pkgs.stdenv.hostPlatform.system}.hyprcov;
+in
 {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -7,11 +10,9 @@
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
     plugins = [
+      hyprcovPackage
     ];
 
-    extraConfig = ''
-      source = ${config.xdg.configHome}/hypr/hyprland.conf
-    '';
+    configFile = "${config.xdg.configHome}/hypr/hyprland.conf";
   };
-
 }
