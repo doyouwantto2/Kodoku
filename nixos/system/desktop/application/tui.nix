@@ -33,6 +33,8 @@
     hyprshade
 
     dmidecode
+
+    btop
   ];
 }
 
