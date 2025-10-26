@@ -9,9 +9,7 @@
     plugins = [
     ];
 
-    extraConfig = ''
-      source = ${config.xdg.configHome}/hypr/hyprland.conf
-    '';
+    extraConfig = builtins.readDir ./extra/dotfiles/hypr;
   };
 
 }
