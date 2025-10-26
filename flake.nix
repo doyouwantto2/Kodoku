@@ -16,20 +16,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Hyprland and Plugins
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Hyprcov Plugin
-    hyprcov = {
-      url = "github:hyprwm/hyprland-plugins/hyprcov";
-      inputs.hyprland.follows = "hyprland"; # Links to your Hyprland input
+    hycov = {
+      url = "github:DreamMaoMao/hycov";
+      inputs.hyprland.follows = "hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Aylur's widgets (ags, astal)
     astal = {
       url = "github:aylur/astal";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,7 +39,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, fenix, hyprland, hyprcov, ags, astal, ... }@inputs: # All inputs listed here
+  outputs = { self, nixpkgs, home-manager, fenix, hyprland, hycov, ags, astal, ... }@inputs: # All inputs listed here
 
     let
       user = {
@@ -84,7 +81,7 @@
           ./nixos/user/user.nix
         ];
         extraSpecialArgs = {
-          inherit user inputs; # Pass 'inputs' so hypr.nix can access 'inputs.hyprcov'
+          inherit user inputs;
         };
       };
     };
