@@ -1,6 +1,7 @@
 { config, pkgs, inputs, ... }:
 
 {
+  home.file."${config.xdg.configHome}/hypr".source = ./extra/dotfiles/hypr;
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
@@ -9,7 +10,9 @@
     plugins = [
     ];
 
-    extraConfig = builtins.readDir ./extra/dotfiles/hypr;
+    extraConfig = ''
+      source = ${config.xdg.configHome}/hypr/hyprland.conf
+    '';
   };
 
 }
