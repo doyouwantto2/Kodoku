@@ -16,11 +16,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     astal = {
       url = "github:aylur/astal";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,7 +28,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, fenix, hyprland, ags, astal, ... }@inputs: # All inputs listed here
+  outputs = { self, nixpkgs, home-manager, fenix, ags, astal, ... }@inputs: # All inputs listed here
 
     let
       user = {
@@ -49,15 +44,6 @@
       rustPkgs = fenix.packages.${user.system}.stable;
     in
     {
-      # Overlays (Your existing Hyprland override)
-      overlays.hypr-flake-override = final: prev: {
-        # Note: In a Home Manager setup, these overrides aren't strictly necessary 
-        # if you define the packages in the home-manager module as you did.
-        hyprland = hyprland.packages.${final.system}.hyprland;
-        xdg-desktop-portal-hyprland = hyprland.packages.${final.system}.xdg-desktop-portal-hyprland;
-      };
-
-      # NixOS Configuration
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = user.system;
         modules = [

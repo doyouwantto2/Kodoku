@@ -1,14 +1,13 @@
-{ config, pkgs, ... }:
+{ config, pkgs, user, ... }:
 
 {
   imports = [
     ./file.nix
-    ./hypr.nix
     ./tool.nix
   ];
 
-  home.username = "emiya2467";
-  home.homeDirectory = "/home/emiya2467";
+  home.username = user.name;
+  home.homeDirectory = "/home/${user.name}";
 
   home.stateVersion = "25.05";
 
