@@ -185,7 +185,14 @@ return {
     "folke/snacks.nvim",
     opts = {
       picker = {
-        ignored = false,
+        hidden = true,
+        ignored = true,
+        sources = {
+          files = {
+            hidden = true,
+            ignored = true,
+          },
+        },
       },
     },
   },
