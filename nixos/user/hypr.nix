@@ -1,7 +1,7 @@
 { config, pkgs, inputs, ... }:
 
 let
-  hycovPackage = inputs.hycov.packages.${pkgs.stdenv.hostPlatform.system}.default; # 🌟 Use 'default' or 'hycov' as the package name
+  Hyprspace = inputs.Hyprspace.packages.${pkgs.system}.Hyprspace;
 in
 {
   wayland.windowManager.hyprland = {
@@ -10,7 +10,7 @@ in
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
     plugins = [
-      hycovPackage
+      Hyprspace
     ];
 
     extraConfig = "${config.xdg.configHome}/hypr/hyprland.conf";

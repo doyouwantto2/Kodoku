@@ -21,10 +21,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hycov = {
-      url = "github:DreamMaoMao/hycov";
+    Hyprspace = {
+      url = "github:KZDKM/Hyprspace";
       inputs.hyprland.follows = "hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     astal = {
@@ -39,7 +38,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, fenix, hyprland, hycov, ags, astal, ... }@inputs: # All inputs listed here
+  outputs = { self, nixpkgs, home-manager, fenix, hyprland, ags, astal, ... }@inputs: # All inputs listed here
 
     let
       user = {
