@@ -8,6 +8,8 @@
 
     plugins = [
     ];
+
+    extraConfig = builtins.readFile ./extra/dotfiles/hypr/hyprland.conf;
   };
 
 }
