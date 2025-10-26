@@ -7,7 +7,7 @@
 
       shellAliases = {
         systemSync = "sudo nixos-rebuild switch --flake .";
-        userSync = "home-manager switch --flake .";
+        userSync = "nix run home-manager -- switch --flake .";
       };
 
       initExtra = ''
@@ -26,7 +26,7 @@
 
       shellAliases = {
         systemSync = "sudo nixos-rebuild switch --flake .";
-        userSync = "home-manager switch --flake .";
+        userSync = "nix run home-manager -- switch --flake .";
       };
 
       oh-my-zsh = {
