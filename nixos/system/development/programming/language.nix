@@ -56,7 +56,7 @@
     sqlx-cli
     sea-orm-cli
 
-    openjdk
+    jdk
     gradle
     google-java-format
     jdt-language-server
