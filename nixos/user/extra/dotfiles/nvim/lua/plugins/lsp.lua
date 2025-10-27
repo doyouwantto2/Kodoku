@@ -83,17 +83,6 @@ return {
     end,
   },
 
-  {
-    'mrcjkb/rustaceanvim',
-    version = '^6',
-    lazy = false,
-    ["rust-analyzer"] = {
-      cargo = {
-        allFeatures = true,
-      },
-    },
-  },
-
   { "mason-org/mason.nvim",                      enabled = false },
   { "mason-org/mason-lspconfig.nvim",            enabled = false },
   { "WhoIsSethDaniel/mason-tool-installer.nvim", enabled = false },
@@ -202,4 +191,46 @@ return {
       },
     },
   },
+
+
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^6',
+    lazy = false,
+    ["rust-analyzer"] = {
+      cargo = {
+        allFeatures = true,
+      },
+    },
+  },
+
+  {
+    "nvim-java/nvim-java",
+    -- Load this plugin only when opening a Java file
+    ft = { "java" },
+    dependencies = {
+      -- Required dependency for UI components
+      "MunifTanjim/nui.nvim",
+
+      -- Highly recommended for debugging integration
+      "mfussenegger/nvim-dap",
+      "rcarriga/nvim-dap-ui",
+    },
+    opts = {
+      jdtls = {
+        cmd = { "jdt-language-server" },
+      },
+
+      settings = {
+        java = {
+          completion = {
+            favoriteStaticMembers = {
+              "org.junit.jupiter.api.Assertions.*",
+              "org.mockito.Mockito.*",
+            },
+          },
+        },
+      },
+    },
+  }
 }
