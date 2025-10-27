@@ -56,6 +56,11 @@
     sqlx-cli
     sea-orm-cli
 
+    openjdk
+    gradle
+    google-java-format
+    jdt-language-server
+
     nixel
     nixf
     nixd
