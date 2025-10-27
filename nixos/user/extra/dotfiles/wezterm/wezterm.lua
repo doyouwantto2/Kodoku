@@ -118,12 +118,6 @@ config.keys = {
   },
 
   {
-    key = "c",
-    mods = "LEADER",
-    action = wezterm.action.CloseCurrentTab { confirm = true },
-  },
-
-  {
     key = "[",
     mods = "LEADER",
     action = act.ActivateTabRelative(-1),

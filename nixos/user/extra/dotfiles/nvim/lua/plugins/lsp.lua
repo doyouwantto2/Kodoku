@@ -27,10 +27,10 @@ return {
   -- CORE UTILITIES & UI
   --------------------------------------------------------------------------------
 
-  -- Required dependency for nvim-java and many other modern plugins
+  -- Required dependency for many modern plugins
   { "MunifTanjim/nui.nvim" },
 
-  -- NEW: Required dependency for nvim-dap-ui (solves the nvim-nio error)
+  -- Required dependency for nvim-dap-ui (solves the nvim-nio error)
   { "nvim-neotest/nvim-nio" },
 
   -- Auto-completion engine (Required)
@@ -58,10 +58,9 @@ return {
   -- DAP Client (Required for debugging Java, C/C++, etc.)
   {
     "mfussenegger/nvim-dap",
-    dependencies = { "rcarriga/nvim-dap-ui" }, -- Ensure UI is available before configuring listeners
+    dependencies = { "rcarriga/nvim-dap-ui" },
     config = function()
       local dap = require("dap")
-      -- NOTE: Removed local dapui = require("dapui") to break the dependency loop.
 
       -- === C/C++ Configuration (Codelldb) ===
       local adapter_name = "codelldb"
@@ -116,7 +115,7 @@ return {
   {
     "rcarriga/nvim-dap-ui",
     dependencies = { "nvim-neotest/nvim-nio" },
-    -- FIX: Configuration is handled here, including listeners, guaranteeing order.
+    -- Configuration is handled here, including listeners, guaranteeing order.
     config = function()
       local dap = require("dap")
       local dapui = require("dapui")
@@ -125,7 +124,7 @@ return {
         controls = { enabled = true },
       })
 
-      -- === DAP UI Integration Listeners (Moved here) ===
+      -- === DAP UI Integration Listeners ===
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
       end
@@ -138,71 +137,73 @@ return {
     end,
   },
 
-  --------------------------------------------------------------------------------
-  -- JAVA DEVELOPMENT (The core request)
-  --------------------------------------------------------------------------------
+  {
+    "Mgenuit/nvim-dap-kotlin",
+    dependencies = { "mfussenegger/nvim-dap" },
+  },
 
   {
-    "nvim-java/nvim-java",
-    -- Only load the plugin when opening a Java file
-    ft = { "java" },
+    "mfussenegger/nvim-jdtls",
+    ft = { "java", "kotlin" },
     dependencies = {
-      -- Explicitly list core dependencies for clarity
-      "MunifTanjim/nui.nvim",
-      "mfussenegger/nvim-dap",
-      "rcarriga/nvim-dap-ui",
+      "nvim-dap",
+      "Mgenuit/nvim-dap-kotlin",
     },
-    opts = {
-      -- Set the command to the executable you installed
-      jdtls = {
-        cmd = { "jdt-language-server" },
-      },
+    config = function()
+      local jdtls = require("jdtls")
+      local root_markers = { 'gradlew', 'pom.xml', '.git' }
 
-      -- Your requested completion settings
-      settings = {
-        java = {
-          completion = {
-            favoriteStaticMembers = {
-              "org.junit.jupiter.api.Assertions.*",
-              "org.mockito.Mockito.*",
+      local root_dir = vim.fs.root(0, root_markers) or os.getenv('HOME')
+
+      local config = {
+        cmd = { "jdtls" },
+
+        root_dir = root_dir,
+
+        settings = {
+          java = {
+            completion = {
+              favoriteStaticMembers = {
+                "org.junit.jupiter.api.Assertions.*",
+                "org.mockito.Mockito.*",
+              },
             },
           },
         },
-      },
-    },
-  },
 
-  --------------------------------------------------------------------------------
-  -- LSP CONFIGURATIONS (LSP clients for other languages)
-  --------------------------------------------------------------------------------
+        on_attach = function(client, bufnr)
+          if client.server_capabilities.codeActionProvider then
+            jdtls.setup_dap(client.env.data_dir .. '/java-debug-adapter', {
+            })
+          end
+        end,
+      }
+
+      jdtls.start_or_attach(config)
+    end,
+  },
 
   {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        -- JDTLS is automatically configured by nvim-java, so we don't define it here.
 
-        -- HTML/CSS/JSON Language Servers
         html = { cmd = { "vscode-html-language-server", "--stdio" } },
         cssls = { cmd = { "vscode-css-language-server", "--stdio" } },
         jsonls = { cmd = { "vscode-json-language-server", "--stdio" } },
 
-        -- TypeScript Server
         tsserver = {
           cmd = { "typescript-language-server", "--stdio" },
           filetypes = {
             "javascript", "javascriptreact", "typescript", "typescriptreact",
           },
-          -- Calls the now globally visible function
           root_dir = find_root_pattern {
             "tsconfig.json", "package.json", "jsconfig.json", ".git",
           },
           init_options = { hostInfo = "neovim" },
-          -- Uses the now globally visible function
           on_attach = ts_on_attach,
         },
 
-        -- Python Pyright
         pyright = {
           settings = {
             python = {
@@ -214,7 +215,6 @@ return {
           },
         },
 
-        -- C/C++ Ccls
         ccls = {
           cmd = { "ccls" },
           init_options = {
@@ -223,31 +223,22 @@ return {
           },
         },
 
-        -- Astro (As per your request)
         astro = {
           cmd = { "astro-ls", "--stdio" },
           filetypes = { "astro" },
-          -- Calls the now globally visible function
           root_dir = find_root_pattern {
             "astro.config.mjs", "astro.config.ts", "package.json", "tsconfig.json", ".git",
           },
         },
 
-        -- Tailwind CSS
-        tailwindcss = {
-          filetypes = {
-            "templ", "vue", "html", "astro", "javascript", "typescript", "react", "htmlangular",
-          },
-        },
-
-        -- Linter Servers (These usually belong in a dedicated formatter/linter setup like null-ls,
-        -- but keeping them here as per your original request.)
         htmlhint_ls = {
           cmd = { "htmlhint-ls", "--stdio" }, filetypes = { "html" }, root_dir = common_root_dir, settings = {},
         },
+
         csslint_ls = {
           cmd = { "csslint", "--stdio" }, filetypes = { "css" }, root_dir = common_root_dir, settings = {},
         },
+
         nixd = {
           cmd = { "nixd" },
           settings = {
@@ -257,10 +248,6 @@ return {
       },
     },
   },
-
-  --------------------------------------------------------------------------------
-  -- MISCELLANEOUS PLUGINS
-  --------------------------------------------------------------------------------
 
   {
     "dgagn/diagflow.nvim",
@@ -279,7 +266,18 @@ return {
     },
   },
 
-  -- Plugins explicitly disabled by the user
+  {
+    "luckasRanarison/tailwind-tools.nvim",
+    name = "tailwind-tools",
+    build = ":UpdateRemotePlugins",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-telescope/telescope.nvim", -- optional
+      "neovim/nvim-lspconfig",         -- optional
+    },
+    opts = {}                          -- your configuration
+  },
+
   { "mason-org/mason.nvim",                      enabled = false },
   { "mason-org/mason-lspconfig.nvim",            enabled = false },
   { "WhoIsSethDaniel/mason-tool-installer.nvim", enabled = false },
