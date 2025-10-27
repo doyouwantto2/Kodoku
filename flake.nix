@@ -2,7 +2,6 @@
   description = "A clean, basic flake configuration for NixOS and Home Manager.";
 
   inputs = {
-    # Nixpkgs and Home Manager
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
@@ -10,7 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Rust Toolchain Management
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -50,13 +48,12 @@
           ./nixos/system/zone.nix
         ];
         specialArgs = {
-          inherit user rustPkgs ags astal inputs; # Pass all necessary inputs/packages
+          inherit user rustPkgs ags astal inputs;
         };
       };
 
-      # Home Manager Configuration
       homeConfigurations.${user.name} = home-manager.lib.homeManagerConfiguration {
-        pkgs = pkgs; # Use the defined package set
+        pkgs = pkgs;
         modules = [
           ./nixos/user/user.nix
         ];
