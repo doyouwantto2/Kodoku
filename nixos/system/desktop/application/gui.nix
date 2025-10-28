@@ -6,5 +6,6 @@
     discord
     slack
     libreoffice
+    prismlauncher
   ];
 }
