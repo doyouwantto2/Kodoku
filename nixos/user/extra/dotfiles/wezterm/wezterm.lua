@@ -176,6 +176,7 @@ config.keys = {
     mods = "CTRL",
     action = act.AdjustPaneSize({ "Right", resizeGap }),
   },
+
 }
 
 config.enable_tab_bar = true

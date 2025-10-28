@@ -6,6 +6,6 @@
     discord
     slack
     libreoffice
-    prismlauncher
+    veloren
   ];
 }
