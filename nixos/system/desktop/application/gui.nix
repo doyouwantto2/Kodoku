@@ -5,6 +5,7 @@
     rofi
     discord
     slack
+    osu-lazer
     libreoffice
     veloren
   ];
