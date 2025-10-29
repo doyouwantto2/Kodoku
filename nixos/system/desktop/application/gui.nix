@@ -6,7 +6,6 @@
     discord
     slack
     osu-lazer
-    tshark
     libreoffice
     veloren
     aircrack-ng

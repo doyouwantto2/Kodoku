@@ -23,6 +23,10 @@
     screenfetch
 
     crunch
+
+    tshark
+
+    termshark
   ];
 }
 
