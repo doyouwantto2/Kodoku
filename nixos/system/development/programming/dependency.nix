@@ -15,6 +15,10 @@
     fd
 
     tree-sitter
+
+    direnv
+
+    dotenvx
   ];
 }
 

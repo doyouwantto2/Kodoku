@@ -2,7 +2,12 @@
   description = "A clean, basic flake configuration for NixOS and Home Manager.";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    nixpkgs.follows = "unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
