@@ -7,5 +7,9 @@
     vscodium
 
     micro
+
+    godot
+
+    blender
   ];
 }
