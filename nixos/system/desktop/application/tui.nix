@@ -19,6 +19,10 @@
     gnumake
 
     cmake
+
+    screenfetch
+
+    crunch
   ];
 }
 
